@@ -19,11 +19,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter NFC Demo',
+      title: 'NFC',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
-      home: const MyHomePage(title: 'Flutter NFC Demo'),
+      home: const MyHomePage(title: 'NFC'),
     );
   }
 }
@@ -64,7 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            _getNfcWidgets(),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: _getNfcWidgets()
+            ),
           ],
         ),
       ),
@@ -89,29 +93,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 ? listenerRunning
                     ? 'NFC is running'
                     : 'Start NFC listener'
-                : 'Read from tag'),
+                : 'Read from tag', textAlign: TextAlign.center),
           ),
           TextButton(
             onPressed: writeCounterOnNextContact ? null : _writeNfcTag,
             child: Text(writeCounterOnNextContact
                 ? 'Waiting for tag to write'
-                : 'Write to tag'),
+                : 'Write to tag', textAlign: TextAlign.center),
           ),
           TextButton(
               onPressed: () => setState(() {
                     _counter = 0;
                   }),
-              child: const Text('Reset counter'))
+              child: const Text('Reset counter', textAlign: TextAlign.center))
         ],
       );
     } else {
       if (Platform.isIOS) {
         //Ios doesnt allow the user to turn of NFC at all,  if its not avalible it means its not build in
-        return const Text("Your device doesn't support NFC");
+        return const Text("Your device doesn't support NFC", textAlign: TextAlign.center);
       } else {
         //Android phones can turn of NFC in the settings
         return const Text(
-            "Your device doesn't support NFC or it's turned off in the system settings");
+            "Your device doesn't support NFC or it's turned off in the system settings", textAlign: TextAlign.center);
       }
     }
   }
